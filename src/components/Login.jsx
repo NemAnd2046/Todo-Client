@@ -2,20 +2,23 @@ import React from "react";
 import { InputGroup, Label, TextField } from "@heroui/react";
 import { Button } from "@heroui/react";
 import { useState } from "react";
+import { login } from "../api";
 
 export const Login = ({ setIsLoggedIn }) => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [msg, setMsg] = useState("");
 
-	const tempUsername = "asd";
-	const tempPw = "123";
-
-	const handleLogin = () => {
-		if (username === tempUsername && password === tempPw) {
-			setIsLoggedIn(true);
-			setMsg("");
-		} else setMsg("Hibás email cím vagy jelszó!");
+	const handleLogin = async () => {
+		try {
+			const data = await login({ username, password });
+			setIsLoggedIn(data.success);
+			setMsg(data.msg);
+		} catch (error) {
+			setMsg(
+				error.response?.data?.msg || "Nem sikerült kapcsolódni a szerverhez!",
+			);
+		}
 	};
 
 	return (
