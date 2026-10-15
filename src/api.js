@@ -7,3 +7,27 @@ export const login = async ({ username, password }) => {
 
 	return response.data;
 };
+
+export const readTodos = async () => {
+	const response = await axios.get(baseURL);
+
+	return response.data;
+};
+
+export const addTodo = async ({ task }) => {
+	const response = await axios.post(baseURL, { task });
+
+	return response.data;
+};
+
+export const deleteTodo = async ({ id }) => {
+	const response = await axios.delete(baseURL + `/${id}`);
+
+	return response.data;
+};
+
+export const patchTodo = async ({ id }) => {
+	const response = await axios.patch(baseURL + `/${id}`);
+
+	return response.data;
+};
